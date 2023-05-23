@@ -1,0 +1,103 @@
+# Configuration file for Python projects.
+# See
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+# https://peps.python.org/pep-0621/#example
+
+[build-system]
+# Configuring setuptools using pyproject.toml files was introduced in
+# setuptools version 61.0.0
+requires = ["setuptools >=61.0, <68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Project metadata.  See
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
+name = "transfer_Li"
+version = "0.0.0"
+description = "Transfer Li ions from cathode to anode in MD simulations"
+readme = {file = "README.rst", content-type = "text/x-rst"}
+license = {file = "LICENSE.txt"}
+authors = [
+    {name = "Andreas Thum", email = "coding.andthum@e.mail.de"},
+]
+maintainers = [
+    {name = "Andreas Thum", email = "coding.andthum@e.mail.de"},
+]
+keywords = [
+    "Python Scripts",
+    "Science",
+    "Scientific Computing",
+    "Computational Science",
+    "Materials Science",
+    "Molecular Simulation",
+    "Molecular Modeling",
+    "Molecular Mechanics",
+    "Molecular Dynamics",
+    "Molecular Dynamics Simulations",
+    "Gromacs",
+    "MDAnalysis",
+    "NumPy",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.7, <3.10"
+dependencies = [
+    "MDAnalysis >=2.0, <3.0",
+    "numpy >=1.15, <2.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/andthum/transfer_Li"
+"Source" = "https://github.com/andthum/transfer_Li"
+"Issue Tracker" = "https://github.com/andthum/transfer_Li/issues"
+"Q&A" = "https://github.com/andthum/transfer_Li/discussions/categories/q-a"
+"Discussions" = "https://github.com/andthum/transfer_Li/discussions"
+
+[tool.setuptools]
+include-package-data = true  # Install files specified in MANIFEST.in.
+# Note: Any files that should be accessible at run time must be located
+# inside the package
+# (https://setuptools.pypa.io/en/latest/userguide/datafiles.html#non-package-data-files).
+
+[tool.bandit]
+# B101: Use of assert detected.
+# B404: Consider possible security implications associated with the subprocess module
+# B603: subprocess call - check for execution of untrusted input.
+skips = ["B101", "B404", "B603"]
+
+[tool.black]
+required-version = 23
+line-length = 79
+
+[tool.isort]
+# profile should go on top so that it does not overwrite other settings.
+profile = "black"
+# Comments to put above import sections.
+import_heading_future = "Future imports"
+import_heading_stdlib = "Standard libraries"
+import_heading_thirdparty = "Third-party libraries"
+import_heading_firstparty = "First-party libraries"
+import_heading_localfolder = "Local imports"
+line_length = 79
+# Number of blank lines around import statements.
+lines_before_imports = 2
+lines_after_imports = 2
+lines_between_sections = 1
+lines_between_types = 0
+# Ignore files listed in .gitignore.
+skip_gitignore = true
