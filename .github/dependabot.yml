@@ -1,0 +1,53 @@
+# Check for outdated packages
+# See:
+# https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-version-updates
+# And:
+# https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
+
+version: 2
+
+updates:
+  - package-ecosystem: "pip"
+    # Where to search for requirements.txt files.
+    # See here for supported requirement files:
+    # https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#supported-package-ecosystems
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    insecure-external-code-execution: "deny"
+    pull-request-branch-name:
+      separator: "/"
+    reviewers:
+      - "andthum"
+    labels:
+      - "dependencies"
+      - "patch"
+
+  - package-ecosystem: "pip"
+    # Where to search for requirements.txt files.
+    # See here for supported requirement files:
+    # https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#supported-package-ecosystems
+    directory: "/.github/workflows"
+    schedule:
+      interval: "weekly"
+    insecure-external-code-execution: "deny"
+    pull-request-branch-name:
+      separator: "/"
+    reviewers:
+      - "andthum"
+    labels:
+      - "dependencies"
+      - "skip-changelog"
+
+  - package-ecosystem: "github-actions"
+    # Where to search for .github/workflows/
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    pull-request-branch-name:
+      separator: "/"
+    reviewers:
+      - "andthum"
+    labels:
+      - "dependencies"
+      - "skip-changelog"
