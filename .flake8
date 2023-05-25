@@ -77,10 +77,12 @@ extend-ignore =
     # N803: argument name should be lowercase
     # N806: variable in function should be lowercase
     # N813: camelcase imported as lowercase
+    # N816: mixedCase variable in global scope
     N802,
     N803,
     N806,
     N813,
+    N816,
 extend-select =
     ### Compatibility with black ###
     # W504: line break after binary operator
