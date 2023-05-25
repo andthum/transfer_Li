@@ -7,12 +7,30 @@ Transfer Lithium Ions
 
 This is just a small helper package that contains scripts to
 
-* Find lithium ions directly attached to the cathode (negatively charged
-  surface) in a molecular dynamics (MD) simulation.
-* Find suitable insertion places at the anode (positively charged
-  surface) at which lithium ions can be inserted.
-* Transfer/Relocate the lithium ions from the cathode to the anode.
+* Find lithium ions directly attached to the negative electrode in a
+  molecular dynamics (MD) simulation.
+* Find suitable insertion places at the positive electrode at which
+  lithium ions can be inserted.
+* Transfer/Relocate the lithium ions from the negative to the positive
+  electrode.
 * (Re-)Start the MD simulation.
+
+
+Context / Overall Goal
+----------------------
+
+Investigate how the electrolyte structure relaxes when taking away a
+lithium ion at the negative electrode.  To do so, remove a lithium ion
+from the first layer at the negative electrode and insert it at the
+positive electrode.
+
+Note that the lithium ion cannot simply be removed but must be
+re-inserted to keep an overall charge-neutral system.  Otherwise, the
+Ewald summation will probably lead to artifacts
+(J. S. Hub, B. L. de Groot, H. Grubmüller, G. Groenhof,
+`Quantifying Artifacts in Ewald Simulations of Inhomogeneous Systems
+with a Net Charge <https://doi.org/10.1021/ct400626b>`_
+Journal of Chemical Theory and Computation, 2014, 10, 1, 381-390).
 
 
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
