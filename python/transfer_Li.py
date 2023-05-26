@@ -252,12 +252,20 @@ if __name__ == "__main__":
 
     # Input and output file names.
     strfile = (
-        args.settings + "_out_" + args.system + "_" + str(args.t0) + "ns.gro"
+        args.settings
+        + "_out_"
+        + args.system
+        + "_after_"
+        + str(args.t0)
+        + "ns.gro"
     )
     topfile = args.settings + "_" + args.system + ".tpr"
+    topfile_dir = "topology"
+    topfile = os.path.join("..", topfile_dir, topfile)
     binfile = (
         args.settings + "_" + args.system + "_density-z_number_Li_binsA.txt.gz"
     )
+    binfile = os.path.join("..", binfile)
     outfile = args.settings + "_" + args.system + "_transfer_Li.txt.gz"
 
     # Get lower bin edge of the first bin at the negative electrode.
@@ -306,8 +314,8 @@ if __name__ == "__main__":
     # Shift hexagon centers to get the coordinates of all possible
     # insertion points.
     hex_centers[:, 2] += z_shift
-    # z-position of all hexagon centers, i.e. all possible insertion
-    # points.
+    # z-position of all shifted hexagon centers, i.e. of all possible
+    # insertion points.
     z_pos = hex_centers[0][2]
 
     # Find all atoms within a given cutoff of the possible insertion
@@ -317,7 +325,7 @@ if __name__ == "__main__":
     zmin = z_pos - r_cut
     zmax = z_pos + r_cut
     # All potentially relevant electrolyte atoms.
-    elyt_str = " and prop z >= {} and prop z <= {}".format(zmin, zmax)
+    elyt_str += " and prop z >= {} and prop z <= {}".format(zmin, zmax)
     elyt = u.select_atoms(elyt_str)
     dists = mdadist.distance_array(
         hex_centers, elyt.positions, box=elyt.dimensions
@@ -371,6 +379,7 @@ if __name__ == "__main__":
             )
         )
         out.write("#\n")
+        out.write("# Working directory:  {}\n".format(os.getcwd()))
         out.write("# Structure file:     {}\n".format(strfile))
         out.write("# Topology file:      {}\n".format(topfile))
         out.write("# Bin file:           {}\n".format(binfile))
@@ -419,7 +428,7 @@ if __name__ == "__main__":
             "# Number of Neighbors:  {:d}\n".format(n_neighbors[hex_ix_best])
         )
         # Multiply by 1/10 to convert Angstrom to nm.
-        out.write("# z_pos:   {:.9f} nm\n".format(z_pos / 10))
+        out.write("# Surface: {:.9f} nm\n".format((z_pos - z_shift) / 10))
         out.write("# z_shift: {:.9f} nm\n".format(z_shift / 10))
         out.write("# r_min:   {:.9f} nm\n".format(sigma_Li / 10))
         out.write("# r_max:   {:.9f} nm\n".format(r_cut / 10))
