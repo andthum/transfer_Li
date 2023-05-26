@@ -252,12 +252,20 @@ if __name__ == "__main__":
 
     # Input and output file names.
     strfile = (
-        args.settings + "_out_" + args.system + "_" + str(args.t0) + "ns.gro"
+        args.settings
+        + "_out_"
+        + args.system
+        + "_after_"
+        + str(args.t0)
+        + "ns.gro"
     )
     topfile = args.settings + "_" + args.system + ".tpr"
+    topfile_dir = "topology"
+    topfile = os.path.join("..", topfile_dir, topfile)
     binfile = (
         args.settings + "_" + args.system + "_density-z_number_Li_binsA.txt.gz"
     )
+    binfile = os.path.join("..", binfile)
     outfile = args.settings + "_" + args.system + "_transfer_Li.txt.gz"
 
     # Get lower bin edge of the first bin at the negative electrode.
@@ -371,6 +379,7 @@ if __name__ == "__main__":
             )
         )
         out.write("#\n")
+        out.write("# Working directory:  {}\n".format(os.getcwd()))
         out.write("# Structure file:     {}\n".format(strfile))
         out.write("# Topology file:      {}\n".format(topfile))
         out.write("# Bin file:           {}\n".format(binfile))
