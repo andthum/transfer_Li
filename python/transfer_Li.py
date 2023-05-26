@@ -317,7 +317,7 @@ if __name__ == "__main__":
     zmin = z_pos - r_cut
     zmax = z_pos + r_cut
     # All potentially relevant electrolyte atoms.
-    elyt_str = " and prop z >= {} and prop z <= {}".format(zmin, zmax)
+    elyt_str += " and prop z >= {} and prop z <= {}".format(zmin, zmax)
     elyt = u.select_atoms(elyt_str)
     dists = mdadist.distance_array(
         hex_centers, elyt.positions, box=elyt.dimensions
