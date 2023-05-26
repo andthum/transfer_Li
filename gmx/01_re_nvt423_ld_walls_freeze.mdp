@@ -1,0 +1,98 @@
+; Relaxation in NVT ensemble with Langevin dynamics
+; Use after reactive step
+
+
+; Run control
+integrator     = sd       ; Algorithm for integrating Newton's equation of motion (sd = leap-frog stochastic dynamics integrator)
+tinit          = 0        ; Starting time of the run
+dt             = 0.0002   ; Time step for integration in [ps]
+nsteps         = 5000     ; Maximum number of steps to integrate, -1 is no maximum
+init-step      = 0        ; Starting step for exact restarts. The time at an step i in a run is calculated as: t = tinit + dt*(init-step + i)
+comm-mode      = linear   ; Linear = remove center of mass translation
+nstcomm        = 50       ; Frequency for center of mass motion removal
+comm-grps      = graB graT electrolyte; Group(s) for center of mass motion removal
+                          ; Create these groups with
+                          ; echo -e "r B* \n name 21 graB \n r T* \n name 22 graT \n 21 | 22 \n name 23 electrodes \n ! 23 \n name 24 electrolyte \n "q | gmx make_ndx -f <structure_file_with_electrodes> -o <${system}.ndx>
+
+
+; Langevin dynamics
+bd-fric        = 0        ; Brownian dynamics friction coefficient in [amu ps^-1]. bd-fric=0 means mass/tau-t
+ld-seed        = 173529   ; Initialize random generator. When ld-seed is set to -1, a pseudo random seed is used.
+
+
+; Output control
+nstxout        = 50       ; Save coordinates to the trajectory every nstxout steps
+nstvout        = 50       ; Save velocities to the trajectory every nstvout steps
+nstfout        = 50       ; Save forces to the trajectory every nstfout steps
+nstlog         = 50       ; Save energies to the log file every nstlog steps
+nstcalcenergy  = 50       ; Calculate energies every nstcalcenergy steps. Should be equal to or a multiple of nstlist. Can become a bottleneck at high parallelization
+nstenergy      = 50       ; Save energies to the energy file every nstenergy steps. Should be a multiple of nstcalcenergy
+
+
+; Neighbor searching
+cutoff-scheme  = verlet   ; Neighbor search method
+nstlist        = 5        ; Frequency for updating the neighbor list. A value of 20 or 40 often gives the best performance
+ns_type        = grid     ; Method to update the neighbor list
+pbc            = xy       ; Periodic boundary conditions in the given directions
+periodic-molecules = no   ; Infinite molecules (yes/no)
+rlist          = 1.4      ; Cut-off distance for the short-range neighbor list in [nm]. Might be adapted by GROMACS unless verlet-buffer-tolerance is set to -1
+
+
+; Electrostatics
+coulombtype    = PME      ; Treatment of long range electrostatic interactions (PME = smooth Particle Mesh Ewald sumation)
+rcoulomb       = 1.4      ; Distance for the Coulomb cutoff in [nm]
+epsilon-r      = 1        ; Relative dielectric constant. Charge scaling: 1.5625 = 1/0.8^2
+
+
+; Van der Waals
+vdw-modifier = force-switch; Shift method for the vdW potential (force-switch smoothly switches the forces to zero between rvdw-switch and rvdw)
+rvdw-switch  = 1.3        ; Start of switching the LJ force and possibly the potential in [nm]
+rvdw         = 1.4        ; Distance for the LJ or Buckingham cutoff in [nm]
+DispCorr     = EnerPres   ; EnerPres = long range dispersion corrections for Energy and Pressure
+
+
+; Ewald
+fourierspacing = 0.12     ; Grid spacing for FFT in [nm]
+pme_order      = 6        ; Interpolation order for PME/PPPM (4 = cubic interpolation)
+ewald_rtol     = 1e-5     ; Relative strength of the Ewald-shifted direct potential at rcoulomb
+ewald-geometry = 3dc      ; Ewald sum is performed in all three dimensions (Use 3dc for slab geometries that are not periodic in z dimension)
+
+
+; Temperature coupling
+tcoupl      = no          ; Thermostat
+nsttcouple  = 5           ; Frequency for coupling the temperature (-1 sets nsttcouple equal to nstlist). For velocity Verlet integrators nsttcouple is set to 1
+tc-grps     = electrodes electrolyte; Groups to couple separately to temperature bath
+tau_t       = -1 0.005    ; Time constant for temperature coupling in [ps]
+ref_t       =  0 423      ; Reference temperature for coupling in [K]
+
+
+; Pressure coupling
+pcoupl          = no      ; Barostat
+
+
+; Velocity generation
+gen-vel         = no      ; Generate initial velocities according to a Maxwell distribution
+
+
+; Bonds
+constraints     = h-bonds ; Bonds that should be constraints
+constraint_algorithm = LINCS; Algorithm to apply constraints. SHAKE is not supported with domain decomposition
+continuation    = yes     ; Do not apply constraints to the start configuration and do not reset shells
+lincs_order     = 4       ; Highest order in the expansion of the constraint coupling matrix
+lincs_iter      = 1       ; Number of iterations to correct for rotational lengthening
+lincs-warnangle = 30      ; Maximum angle that a bond can rotate before LINCS will complain
+morse           = no      ; Use harmonic (no) or Morse potential (yes) for bonds
+
+
+; Walls
+nwall           = 2       ; Set walls at the edges of the simulation box
+wall-atomtype   = WB WT   ; Atom type name in the force field for each wall
+wall-type       = 12-6    ; Direct LJ potential with the z distance from the wall
+wall-r-linpot   = -1      ; Below this distance [nm] from the wall the potential is continued linearly
+wall-density    =         ; Number density of the atoms for each wall for wall types 9-3 and 10-4 in [nm^-3/nm^-2]
+wall-ewald-zfac = 3       ; Scaling factor for the third box vector for Ewald summation
+
+
+; Non-equilibrium MD
+freezegrps = electrodes   ; Groups that are to be frozen
+freezedim = Y Y Y         ; Dimensions for which groups in freezegrps should be frozen, specify Y or N for X, Y and Z and for each group
