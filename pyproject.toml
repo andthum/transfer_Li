@@ -70,6 +70,7 @@ dependencies = [
 "Discussions" = "https://github.com/andthum/transfer_Li/discussions"
 
 [tool.setuptools]
+packages = ["python"]
 include-package-data = true  # Install files specified in MANIFEST.in.
 # Note: Any files that should be accessible at run time must be located
 # inside the package
