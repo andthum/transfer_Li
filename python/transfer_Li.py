@@ -314,8 +314,8 @@ if __name__ == "__main__":
     # Shift hexagon centers to get the coordinates of all possible
     # insertion points.
     hex_centers[:, 2] += z_shift
-    # z-position of all hexagon centers, i.e. all possible insertion
-    # points.
+    # z-position of all shifted hexagon centers, i.e. of all possible
+    # insertion points.
     z_pos = hex_centers[0][2]
 
     # Find all atoms within a given cutoff of the possible insertion
@@ -428,7 +428,7 @@ if __name__ == "__main__":
             "# Number of Neighbors:  {:d}\n".format(n_neighbors[hex_ix_best])
         )
         # Multiply by 1/10 to convert Angstrom to nm.
-        out.write("# z_pos:   {:.9f} nm\n".format(z_pos / 10))
+        out.write("# Surface: {:.9f} nm\n".format((z_pos - z_shift) / 10))
         out.write("# z_shift: {:.9f} nm\n".format(z_shift / 10))
         out.write("# r_min:   {:.9f} nm\n".format(sigma_Li / 10))
         out.write("# r_max:   {:.9f} nm\n".format(r_cut / 10))
