@@ -33,6 +33,36 @@ with a Net Charge <https://doi.org/10.1021/ct400626b>`_
 Journal of Chemical Theory and Computation, 2014, 10, 1, 381-390).
 
 
+Steps to Prepare and Run Simulations with Transferred Lithium Ions
+------------------------------------------------------------------
+
+Structure of the project directory.  ``after_<t0>ns`` is the working
+directory from which to start the scripts.
+
+.. code-block:: text
+
+    project_dir
+    |
+    +--topology
+    |  +--<system>.ndx
+    |  +--<system>.top
+    |  +--<settings>_<system>.tpr
+    |
+    +--after_<t0>ns
+    |  +--<settings>_out_<system>_after_<t0>ns.gro
+    |
+    +--<settings>_<system>0_density-z_number_Li_binsA.txt.gz
+
+Scripts to run:
+
+.. code-block:: bash
+
+    python/transfer_Li.py --system <system> --settings <settings> --t0 <t0>
+    bash/prepare_sim_dir.sh -s <system>
+    slurm/submit/submit_re_nvt423_ld.sh -s <system>
+    slurm/submit/submit_pr_nvt423_vr.sh -s <system>
+
+
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
     :alt: pre-commit
     :target: https://github.com/pre-commit/pre-commit
