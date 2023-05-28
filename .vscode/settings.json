@@ -47,6 +47,7 @@
         "setuptools",
         "shellcheck",
         "shfmt",
+        "slurm",
         "strfile",
         "texlive",
         "usecols",
