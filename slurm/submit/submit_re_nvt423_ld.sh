@@ -58,7 +58,7 @@ for dir in Li[0-9]*_transferred; do
         --system "${system}_${dir}" \
         --settings "${relaxation}" \
         --structure "${structure}" \
-        --grompp "-maxwarn 1" \
+        --grompp-flags "-maxwarn 1" \
         --partition express,himsshort,q0heuer,hims,normal \
         --time 0-01:00:00 ||
         exit

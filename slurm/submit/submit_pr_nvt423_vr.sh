@@ -61,7 +61,8 @@ for dir in Li[0-9]*_transferred; do
         --system "${system}_${dir}" \
         --settings "${production}" \
         --structure "${relaxation}_out_${system}_${dir}.gro" \
-        --grompp "-maxwarn 1" ||
+        --grompp-flags "-maxwarn 1" \
+        --mdrun-flags "-cpt 60 -ntmpi 36 -npme 12" ||
         exit
     cd ../ || exit
 done
