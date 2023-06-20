@@ -55,11 +55,21 @@ production="pr_nvt423_vr"
 for dir in Li[0-9]*_transferred; do
     echo
     echo "${dir}"
+    if [[ ! -d ${dir} ]]; then
+        echo "WARNING: No such directory: '${dir}'"
+        continue
+    fi
     cd "${dir}" || exit
+
+    # Clean up relaxation run.
     mv -v "${relaxation}_${system}_${dir}" "01_${relaxation}_${system}_${dir}" || exit
+
+    # Prepare production run.
     cp -v "01_${relaxation}_${system}_${dir}/${system}_${dir}.top" ./ || exit
     cp -v "01_${relaxation}_${system}_${dir}/${system}_${dir}.ndx" ./ || exit
     cp -v "01_${relaxation}_${system}_${dir}/${relaxation}_out_${system}_${dir}.gro" ./ || exit
+
+    # Submit production run.
     submit_gmx_mdrun.py \
         --system "${system}_${dir}" \
         --settings "${production}" \
@@ -67,6 +77,7 @@ for dir in Li[0-9]*_transferred; do
         --grompp-flags "-maxwarn 1" \
         --mdrun-flags "-cpt 60 -ntmpi 36 -npme 12" ||
         exit
+
     cd ../ || exit
 done
 
