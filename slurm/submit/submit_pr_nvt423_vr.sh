@@ -90,9 +90,9 @@ files=$(
         -name "${relaxation}_out_${system}_Li[0-9]*_transferred_slurm-[0-9]*.out" ||
         exit
 )
-files=( "${files}" )
 if [[ ${#files[@]} -gt 0 ]]; then
-    for file in "${files[@]}"; do
+    echo
+    for file in ${files}; do
         rm -fv "${file}" || exit
     done
 fi
