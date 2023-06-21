@@ -14,25 +14,28 @@ usage() {
     echo "Usage:"
     echo
     echo "Required arguments:"
-    echo "  -h    Show this help message and exit."
     echo "  -s    The name of the system to simulate, e.g."
     echo "        lintf2_g1_20-1_gra_q1_sc80."
+    echo
+    echo "Optional arguments:"
+    echo "  -h    Show this help message and exit."
 }
 
 ########################################################################
 # Argument Parsing                                                     #
 ########################################################################
 
-while getopts hs: option; do
+while getopts s:h option; do
     case ${option} in
+        # Required arguments.
+        s)
+            system=${OPTARG}
+            ;;
         # Optional arguments.
         h)
             information
             usage
             exit 0
-            ;;
-        s)
-            system=${OPTARG}
             ;;
         # Handling of invalid options or missing arguments.
         *)
@@ -52,7 +55,12 @@ relaxation="re_nvt423_ld"
 for dir in Li[0-9]*_transferred; do
     echo
     echo "${dir}"
+    if [[ ! -d ${dir} ]]; then
+        echo "WARNING: No such directory: '${dir}'"
+        continue
+    fi
     cd "${dir}" || exit
+
     structure="${snapshot}_out_${system}_${dir}.gro"
     submit_gmx_mdrun.py \
         --system "${system}_${dir}" \
@@ -62,5 +70,6 @@ for dir in Li[0-9]*_transferred; do
         --partition express,himsshort,q0heuer,hims,normal \
         --time 0-01:00:00 ||
         exit
+
     cd ../ || exit
 done

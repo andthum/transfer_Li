@@ -61,6 +61,8 @@ Scripts to run:
     bash/prepare_sim_dir.sh -s <system>
     slurm/submit/submit_re_nvt423_ld.sh -s <system>
     slurm/submit/submit_pr_nvt423_vr.sh -s <system>
+    bash/cleanup_sim_dir.sh -s <system>
+    slurm/submit/submit_gmx_analyses.sh -s <system> -e <settings> -a <scripts>
 
 
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
