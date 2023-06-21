@@ -55,7 +55,12 @@ relaxation="re_nvt423_ld"
 for dir in Li[0-9]*_transferred; do
     echo
     echo "${dir}"
+    if [[ ! -d ${dir} ]]; then
+        echo "WARNING: No such directory: '${dir}'"
+        continue
+    fi
     cd "${dir}" || exit
+
     structure="${snapshot}_out_${system}_${dir}.gro"
     submit_gmx_mdrun.py \
         --system "${system}_${dir}" \
@@ -65,5 +70,6 @@ for dir in Li[0-9]*_transferred; do
         --partition express,himsshort,q0heuer,hims,normal \
         --time 0-01:00:00 ||
         exit
+
     cd ../ || exit
 done
