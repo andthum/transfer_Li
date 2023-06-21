@@ -11,7 +11,7 @@ flags=(--begin 0)
 information() {
     echo "Submit Gromacs analysis tools for each transferred lithium ion to"
     echo "the Slurm workload manager using 'HPC Submit Scripts' (hpcss,"
-    echo "https://hpcss.readthedocs.io/en/latest/index.html), specifically"
+    echo "https://github.com/andthum/hpc_submit_scripts), specifically"
     echo "'submit_gmx_analyses_lintf2_ether.py'"
     echo "(https://hpcss.readthedocs.io/en/latest/doc_pages/_sphinx_autosummary_analysis/submit_gmx_analyses_lintf2_ether.html)."
 }
