@@ -57,12 +57,18 @@ Scripts to run:
 
 .. code-block:: bash
 
+    # Prepare directories.
     python/transfer_Li.py --system <system> --settings <settings> --t0 <t0>
     bash/prepare_sim_dir.sh -s <system>
+
+    # Launch simulations.
     slurm/submit/submit_re_nvt423_ld.sh -s <system>
     slurm/submit/submit_pr_nvt423_vr.sh -s <system>
     bash/cleanup_sim_dir.sh -s <system>
+
+    # Launch analysis scripts.
     slurm/submit/submit_gmx_analyses.sh -s <system> -e <settings> -a <scripts>
+    bash/cleanup_gmx_analyses.sh -s <system> -e <settings>
 
 
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white

@@ -1,19 +1,16 @@
 #!/bin/bash
 
 settings="pr_nvt423_vr"
-ana_scripts="1"
-flags=(--begin 0)
+path_to_hpcss="${HOME}/Promotion/hpc_submit_scripts"
+cleanup_script="analysis/lintf2_ether/gmx/.cleanup_gmx_analyses.sh"
 
 ########################################################################
 # Information and Usage Functions                                      #
 ########################################################################
 
 information() {
-    echo "Submit Gromacs analysis tools for each transferred lithium ion to"
-    echo "the Slurm workload manager using 'HPC Submit Scripts' (hpcss,"
-    echo "https://github.com/andthum/hpc_submit_scripts), specifically"
-    echo "'submit_gmx_analyses_lintf2_ether.py'"
-    echo "(https://hpcss.readthedocs.io/en/latest/doc_pages/_sphinx_autosummary_analysis/submit_gmx_analyses_lintf2_ether.html)."
+    echo "Clean up the directory containing the results of the Gromacs"
+    echo "analysis tools for each transferred lithium ion."
 }
 
 usage() {
@@ -21,28 +18,23 @@ usage() {
     echo "Usage:"
     echo
     echo "Required arguments:"
-    echo "  -s    The name of the system to analyze, e.g."
+    echo "  -s    The name of the system to clean up, e.g."
     echo "        lintf2_g1_20-1_gra_q1_sc80."
     echo
     echo "Optional arguments:"
     echo "  -h    Show this help message and exit."
-    echo "  -e    The simulation settings of the simulation to analyze."
+    echo "  -e    The simulation settings of the simulation to clean up."
     echo "        Default: ${settings}."
-    echo "  -a    The analysis scripts to submit.  See"
-    echo "        'submit_gmx_analyses_lintf2_ether.py' for possible options."
-    echo "        Default: ${ana_scripts}."
-    echo "  -f    Additional options (besides --system, --settings and"
-    echo "        --scripts) to parse to"
-    echo "        'submit_gmx_analyses_lintf2_ether.py' provided as one long,"
-    echo "        enquoted string.  See there for possible options.  Default:"
-    echo "        ${flags[*]}"
+    echo "  -p    Path to your HPC Submit Scripts (hpcss) installation"
+    echo "        (https://github.com/andthum/hpc_submit_scripts).  Default:"
+    echo "        ${path_to_hpcss}."
 }
 
 ########################################################################
 # Argument Parsing                                                     #
 ########################################################################
 
-while getopts s:a:he:f: option; do
+while getopts s:he:p: option; do
     case ${option} in
         # Required arguments.
         s)
@@ -57,14 +49,8 @@ while getopts s:a:he:f: option; do
         e)
             settings=${OPTARG}
             ;;
-        a)
-            ana_scripts=${OPTARG}
-            ;;
-        f)
-            # See https://github.com/koalaman/shellcheck/wiki/SC2086#exceptions
-            # and https://github.com/koalaman/shellcheck/wiki/SC2206
-            # shellcheck disable=SC2206
-            flags=(${OPTARG})
+        p)
+            path_to_hpcss=${OPTARG}
             ;;
         # Handling of invalid options or missing arguments.
         *)
@@ -87,6 +73,8 @@ else
     echo "Error: Unknown 'settings': '${settings}'"
 fi
 
+# Clean up the directory containing the results of the Gromacs analysis
+# tools.
 for dir in Li[0-9]*_transferred; do
     echo
     echo "${dir}"
@@ -104,20 +92,31 @@ for dir in Li[0-9]*_transferred; do
     fi
     cd "${sim_dir}" || exit
 
-    # ana_dir="ana_${settings}_${system}_${dir}/gmx"
-    # if [[ -d ${ana_dir} ]]; then
-    #     echo "WARNING: Analysis directory already exists: '${ana_dir}'"
-    #     cd ../../ || exit
-    #     continue
-    # fi
+    ana_dir="ana_${settings}_${system}_${dir}/gmx"
+    if [[ ! -d ${ana_dir} ]]; then
+        echo "WARNING: No such directory: '${ana_dir}'"
+        cd ../../ || exit
+        continue
+    fi
+    cd "${ana_dir}" || exit
 
-    # shellcheck disable=SC2048,SC2086
-    submit_gmx_analyses_lintf2_ether.py \
-        --system "${system}_${dir}" \
-        --settings "${settings}" \
-        --scripts "${ana_scripts}" \
-        ${flags[*]} ||
-        exit
+    bash "${path_to_hpcss}/${cleanup_script}" || exit
 
-    cd ../../ || exit
+    cd ../../../../ || exit
 done
+
+# Remove left-behind slurm output files with CPU/Memory usage
+# statitistics.
+files=$(
+    find . \
+        -type f \
+        -user root \
+        -name "${settings}_${system}_Li[0-9]*_transferred_*_slurm-[0-9]*.out" ||
+        exit
+)
+if [[ ${#files[@]} -gt 0 ]]; then
+    echo
+    for file in ${files}; do
+        rm -fv "${file}" || exit
+    done
+fi
