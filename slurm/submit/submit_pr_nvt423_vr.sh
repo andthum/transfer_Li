@@ -14,25 +14,28 @@ usage() {
     echo "Usage:"
     echo
     echo "Required arguments:"
-    echo "  -h    Show this help message and exit."
     echo "  -s    The name of the system to simulate, e.g."
     echo "        lintf2_g1_20-1_gra_q1_sc80."
+    echo
+    echo "Optional arguments:"
+    echo "  -h    Show this help message and exit."
 }
 
 ########################################################################
 # Argument Parsing                                                     #
 ########################################################################
 
-while getopts hs: option; do
+while getopts s:h option; do
     case ${option} in
+        # Required arguments.
+        s)
+            system=${OPTARG}
+            ;;
         # Optional arguments.
         h)
             information
             usage
             exit 0
-            ;;
-        s)
-            system=${OPTARG}
             ;;
         # Handling of invalid options or missing arguments.
         *)
