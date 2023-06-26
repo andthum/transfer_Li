@@ -66,9 +66,29 @@ Scripts to run:
     slurm/submit/submit_pr_nvt423_vr.sh -s <system>
     bash/cleanup_sim_dir.sh -s <system>
 
-    # Launch analysis scripts.
-    slurm/submit/submit_gmx_analyses.sh -s <system> -e <settings> -a <scripts>
-    bash/cleanup_gmx_analyses.sh -s <system> -e <settings>
+    # Launch analysis scripts for the relaxation run.
+    slurm/submit/submit_gmx_analyses.sh \
+        -s <system> \
+        -e re_nvt423_ld \
+        -f "--begin 0 --dt 0.01 --binwidth 0.2 --restart 0.01 --time 0-02:00:00 --partition express,himsshort,q0heuer,hims,normal"
+    bash/cleanup_gmx_analyses.sh -s <system> -e re_nvt423_ld
+    slurm/submit/submit_mdt_analyses.sh \
+        -s <system> \
+        -e re_nvt423_ld \
+        -f "--begin 0 --binwidth 2.0 --restart 1 --time 0-02:00:00 --partition express,himsshort,q0heuer,hims,normal"
+    bash/cleanup_mdt_analyses.sh -s <system> -e re_nvt423_ld
+
+    # Launch analysis scripts for the production run.
+    slurm/submit/submit_gmx_analyses.sh \
+        -s <system> \
+        -e pr_nvt423_vr \
+        -f "--begin 0 --time 1-00:00:00 --partition q0heuer,hims,normal"
+    bash/cleanup_gmx_analyses.sh -s <system> -e pr_nvt423_vr
+    slurm/submit/submit_mdt_analyses.sh \
+        -s <system> \
+        -e pr_nvt423_vr \
+        -f "--begin 0 --restart 1000 --time 0-02:00:00 --partition express,himsshort,q0heuer,hims,normal"
+    bash/cleanup_mdt_analyses.sh -s <system> -e pr_nvt423_vr
 
 
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
