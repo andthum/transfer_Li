@@ -169,7 +169,7 @@ repos:
     # to XX but somehow the pre-commit hook has version YY when
     # specifying the hook version without the prefix.  See
     # https://github.com/psf/black/issues/2493#issuecomment-1081987650
-    rev: "23.3.0"
+    rev: "refs/tags/23.3.0:refs/tags/23.3.0"
     hooks:
       # Format Python code with black.
       - id: "black"
@@ -265,10 +265,12 @@ repos:
   ######################################################################
 
   - repo: "https://github.com/markdownlint/markdownlint"
-    # v0.12.0 requires ruby2.7, however openSUSE Leap 15.4 officially
-    # only provides ruby2.5 which is also required for texlive
-    # => stay at v0.11.0
-    rev: "v0.12.0"
+    # openSUSE Leap 15.4 officially only provides ruby2.5 (which is also
+    # required for TeXLive).
+    # v0.12.0 requires ruby2.7
+    # v0.11.0 and v0.10.0 require ruby2.6
+    # => stay at v0.9.0
+    rev: "v0.9.0"
     hooks:
       # Lint Markdown files with markdownlint.
       - id: "markdownlint"
