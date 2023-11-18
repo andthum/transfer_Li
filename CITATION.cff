@@ -1,0 +1,326 @@
+# Citation File Format (cff).
+# See https://citation-file-format.github.io/
+
+cff-version: "1.2.0"
+message: "If you use this software, please cite it using these metadata."
+
+# Keep project metadata in sync with `pyproject.toml`!
+type: "software"
+title: "transfer_Li"
+abstract: "Transfer Li ions from cathode to anode in MD simulations."
+authors:
+  - given-names: "Andreas"
+    family-names: "Thum"
+    alias: "andthum"
+    email: "coding.andthum@e.mail.de"
+    tel: "+49 251 83-29179"
+    fax: "+49 251 83-29159"
+    affiliation: "University of Münster, Institute for Physical Chemistry"
+    address: "Corrensstraße 28/30"
+    city: "Münster"
+    post-code: 48149
+    country: "DE"
+    region: "North Rhine-Westphalia"
+    orcid: "https://orcid.org/0000-0002-2262-8507"
+contact:
+  - given-names: "Andreas"
+    family-names: "Thum"
+    email: "coding.andthum@e.mail.de"
+# identifiers:
+#   - description: "The concept DOI of the software."
+#     type: "doi"
+#     value: "10.5281/zenodo.10154409"
+url: "https://github.com/andthum/transfer_Li"
+repository-code: "https://github.com/andthum/transfer_Li"
+license: "MIT"
+license-url: "https://mit-license.org/"
+keywords:
+  - "Python Scripts"
+  - "Science"
+  - "Scientific Computing"
+  - "Computational Science"
+  - "Materials Science"
+  - "Molecular Simulation"
+  - "Molecular Modeling"
+  - "Molecular Mechanics"
+  - "Molecular Dynamics"
+  - "Molecular Dynamics Simulations"
+  - "Gromacs"
+  - "MDAnalysis"
+  - "NumPy"
+
+# Keep references in sync with pyproject.toml.
+references:
+  - type: "software"
+    title: "MDTools"
+    abstract: "Scripts to prepare and analyze molecular dynamics simulations."
+    authors:
+      - given-names: "Andreas"
+        family-names: "Thum"
+      - given-names: "Len"
+        family-names: "Kimms"
+      - name: "All Contributors to MDTools"
+    url: "https://github.com/andthum/mdtools"
+    repository-code: "https://github.com/andthum/mdtools"
+    license: "GPL-3.0-or-later"
+    license-url: "https://www.gnu.org/licenses/gpl-3.0.html"
+    keywords:
+      - "Scripts Collection"
+      - "Python Scripts"
+      - "Science"
+      - "Scientific Computing"
+      - "Computational Science"
+      - "Computational Biology"
+      - "Computational Chemistry"
+      - "Computational Physics"
+      - "Materials Science"
+      - "Molecular Simulation"
+      - "Molecular Modeling"
+      - "Molecular Mechanics"
+      - "Molecular Dynamics"
+      - "Molecular Dynamics Simulation"
+      - "Trajectory Analysis"
+      - "MDAnalysis"
+      - "NumPy"
+      - "Python3"
+      - "GPLv3"
+
+  - type: "software"
+    title: "MDAnalysis"
+    abstract: >-
+      MDAnalysis is a Python library to analyze molecular dynamics simulations.
+    authors:
+      - given-names: "Naveen"
+        family-names: "Michaud-Agrawal"
+      - name: "The MDAnalysis Core Developer Team"
+      - name: "All Contributors to MDAnalysis"
+    url: "https://www.mdanalysis.org"
+    repository-code: "https://github.com/MDAnalysis/mdanalysis"
+    license: "GPL-2.0-or-later"
+    license-url: "https://www.gnu.org/licenses/gpl-2.0.html"
+    keywords:
+      - "python"
+      - "science"
+      - "chemistry"
+      - "biophysics"
+      - "molecular-dynamics"
+      - "computational-chemistry"
+      - "molecular-simulation"
+      - "analysis"
+      - "trajectory-analysis"
+
+  - type: "proceedings"
+    title: >-
+      MDAnalysis: A Python Package for the Rapid Analysis of Molecular Dynamics
+      Simulations
+    abstract: >-
+      MDAnalysis (http://mdanalysis.org) is a library for structural and
+      temporal analysis of molecular dynamics (MD) simulation trajectories and
+      individual protein structures. MD simulations of biological molecules
+      have become an important tool to elucidate the relationship between
+      molecular structure and physiological function. Simulations are performed
+      with highly optimized software packages on HPC resources but most codes
+      generate output trajectories in their own formats so that the development
+      of new trajectory analysis algorithms is confined to specific user
+      communities and widespread adoption and further development is delayed.
+      MDAnalysis addresses this problem by abstracting access to the raw
+      simulation data and presenting a uniform object-oriented Python interface
+      to the user. It thus enables users to rapidly write code that is portable
+      and immediately usable in virtually all biomolecular simulation
+      communities. The user interface and modular design work equally well in
+      complex scripted work flows, as foundations for other packages, and for
+      interactive and rapid prototyping work in IPython / Jupyter notebooks,
+      especially together with molecular visualization provided by nglview and
+      time series analysis with pandas. MDAnalysis is written in Python and
+      Cython and uses NumPy arrays for easy interoperability with the wider
+      scientific Python ecosystem. It is widely used and forms the foundation
+      for more specialized biomolecular simulation tools. MDAnalysis is
+      available under the GNU General Public License v2.
+    authors:
+      - given-names: "Richard J."
+        family-names: "Gowers"
+      - given-names: "Max"
+        family-names: "Linke"
+      - given-names: "Jonathan"
+        family-names: "Barnoud"
+      - given-names: "Tyler John Edward"
+        family-names: "Reddy"
+      - given-names: "Manuel N."
+        family-names: "Melo"
+      - given-names: "Sean L."
+        family-names: "Seyler"
+      - given-names: "Jan"
+        family-names: "Domanski"
+      - given-names: "David L."
+        family-names: "Dotson"
+      - given-names: "Sebastien"
+        family-names: "Buchoux"
+      - given-names: "Ian M."
+        family-names: "Kenney"
+      - given-names: "Oliver"
+        family-names: "Beckstein"
+    editors:
+      - given-names: "Sebastian"
+        family-names: "Benthall"
+      - given-names: "Scott"
+        family-names: "Rostrup"
+    conference:
+      name: "Proceedings of the 15th Python in Science Conference"
+      city: "Austin"
+      region: "Texas"
+      country: "US"
+    year: 2016
+    pages: 98-105
+    doi: "10.25080/Majora-629e541a-00e"
+    url: "https://www.osti.gov/biblio/1565806"
+    keywords:
+      - "software"
+      - "molecular dynamics simulations"
+      - "science"
+      - "chemistry"
+      - "physics"
+      - "biology"
+
+  - type: "article"
+    title: >-
+      MDAnalysis: A toolkit for the analysis of molecular dynamics simulations
+    abstract: >-
+      Abstract MDAnalysis is an object-oriented library for structural and
+      temporal analysis of molecular dynamics (MD) simulation trajectories and
+      individual protein structures. It is written in the Python language with
+      some performance-critical code in C. It uses the powerful NumPy package
+      to expose trajectory data as fast and efficient NumPy arrays. It has been
+      tested on systems of millions of particles. Many common file formats of
+      simulation packages including CHARMM, Gromacs, Amber, and NAMD and the
+      Protein Data Bank format can be read and written. Atoms can be selected
+      with a syntax similar to CHARMM's powerful selection commands. MDAnalysis
+      enables both novice and experienced programmers to rapidly write their
+      own analytical tools and access data stored in trajectories in an easily
+      accessible manner that facilitates interactive explorative analysis.
+      MDAnalysis has been tested on and works for most Unix-based platforms
+      such as Linux and Mac OS X. It is freely available under the GNU General
+      Public License from http://mdanalysis.googlecode.com.
+    authors:
+      - given-names: "Naveen"
+        family-names: "Michaud-Agrawal"
+      - given-names: "Elizabeth J."
+        family-names: "Denning"
+      - given-names: "Thomas B."
+        family-names: "Woolf"
+      - given-names: "Oliver"
+        family-names: "Beckstein"
+    journal: "Journal of Computational Chemistry"
+    volume: 32
+    number: 10
+    pages: "2319-2327"
+    year: 2011
+    doi: "10.1002/jcc.21787"
+    url: "https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.21787"
+    keywords:
+      - "molecular dynamics simulations"
+      - "analysis"
+      - "proteins"
+      - "object-oriented design"
+      - "software"
+      - "membrane systems"
+      - "Python programming language"
+
+  - type: "software"
+    title: "NumPy"
+    abstract: "The fundamental package for scientific computing with Python."
+    authors:
+      - name: "All Contributors to NumPy"
+    url: "https://numpy.org"
+    repository-code: "https://github.com/numpy/numpy"
+    license: "BSD-3-Clause"
+    license-url: "https://opensource.org/licenses/BSD-3-Clause"
+    keywords:
+      - "python"
+      - "numpy"
+      - "closember"
+
+  - type: "article"
+    title: "Array programming with NumPy"
+    abstract: >-
+      Array programming provides a powerful, compact and expressive syntax for
+      accessing, manipulating and operating on data in vectors, matrices and
+      higher-dimensional arrays. NumPy is the primary array programming library
+      for the Python language. It has an essential role in research analysis
+      pipelines in fields as diverse as physics, chemistry, astronomy,
+      geoscience, biology, psychology, materials science, engineering, finance
+      and economics. For example, in astronomy, NumPy was an important part of
+      the software stack used in the discovery of gravitational waves and in
+      the first imaging of a black hole. Here we review how a few fundamental
+      array concepts lead to a simple and powerful programming paradigm for
+      organizing, exploring and analysing scientific data. NumPy is the
+      foundation upon which the scientific Python ecosystem is constructed. It
+      is so pervasive that several projects, targeting audiences with
+      specialized needs, have developed their own NumPy-like interfaces and
+      array objects. Owing to its central position in the ecosystem, NumPy
+      increasingly acts as an interoperability layer between such array
+      computation libraries and, together with its application programming
+      interface (API), provides a flexible framework to support the next decade
+      of scientific and industrial analysis.
+    authors:
+      - given-names: "Charles R."
+        family-names: "Harris"
+      - given-names: "K. Jarrod"
+        family-names: "Millman"
+      - given-names: "Stéfan J."
+        family-names: "van der Walt"
+      - given-names: "Ralf"
+        family-names: "Gommers"
+      - given-names: "Pauli"
+        family-names: "Virtanen"
+      - given-names: "David"
+        family-names: "Cournapeau"
+      - given-names: "Eric"
+        family-names: "Wieser"
+      - given-names: "Julian"
+        family-names: "Taylor"
+      - given-names: "Sebastian"
+        family-names: "Berg"
+      - given-names: "Nathaniel J."
+        family-names: "Smith"
+      - given-names: "Robert"
+        family-names: "Kern"
+      - given-names: "Matti"
+        family-names: "Picus"
+      - given-names: "Stephan"
+        family-names: "Hoyer"
+      - given-names: "Marten H."
+        family-names: "van Kerkwijk"
+      - given-names: "Matthew"
+        family-names: "Brett"
+      - given-names: "Allan"
+        family-names: "Haldane"
+      - given-names: "Jaime Fernández"
+        family-names: "del Río"
+      - given-names: "Mark"
+        family-names: "Wiebe"
+      - given-names: "Pearu"
+        family-names: "Peterson"
+      - given-names: "Pierre"
+        family-names: "Gérard-Marchant"
+      - given-names: "Kevin"
+        family-names: "Sheppard"
+      - given-names: "Tyler"
+        family-names: "Reddy"
+      - given-names: "Warren"
+        family-names: "Weckesser"
+      - given-names: "Hameer"
+        family-names: "Abbasi"
+      - given-names: "Christoph"
+        family-names: "Gohlke"
+      - given-names: "Travis E."
+        family-names: "Oliphant"
+    journal: "Nature"
+    volume: 585
+    number: 7825
+    pages: "357-362"
+    year: 2020
+    month: 9
+    publisher:
+      name: "Springer Science and Business Media LLC"
+    doi: "10.1038/s41586-020-2649-2"
+    url: "https://doi.org/10.1038/s41586-020-2649-2"
