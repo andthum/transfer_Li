@@ -12,8 +12,9 @@ build-backend = "setuptools.build_meta"
 [project]
 # Project metadata.  See
 # https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
+# Keep in sync with `CITATION.cff`!
 name = "transfer_Li"
-version = "0.0.0"
+version = "0.1.0"
 description = "Transfer Li ions from cathode to anode in MD simulations"
 readme = {file = "README.rst", content-type = "text/x-rst"}
 license = {file = "LICENSE.txt"}
