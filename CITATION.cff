@@ -26,10 +26,10 @@ contact:
   - given-names: "Andreas"
     family-names: "Thum"
     email: "coding.andthum@e.mail.de"
-# identifiers:
-#   - description: "The concept DOI of the software."
-#     type: "doi"
-#     value: "10.5281/zenodo.10154409"
+identifiers:
+  - description: "The concept DOI of the software."
+    type: "doi"
+    value: "10.5281/zenodo.10155117"
 url: "https://github.com/andthum/transfer_Li"
 repository-code: "https://github.com/andthum/transfer_Li"
 license: "MIT"
