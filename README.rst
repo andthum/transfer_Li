@@ -3,7 +3,8 @@ Transfer Lithium Ions
 #####################
 
 |pre-commit| |pre-commit.ci_status| |Test_Status| |CodeQL_Status|
-|License_MIT| |Made_with_Bash| |Made_with_Python| |Code_style_black|
+|License_MIT| |DOI| |Made_with_Bash| |Made_with_Python|
+|Code_style_black|
 
 This is just a small helper package that contains scripts to
 
@@ -106,6 +107,9 @@ Scripts to run:
 .. |License_MIT| image:: https://img.shields.io/badge/License-MIT-blue.svg
     :alt: MIT License
     :target: https://mit-license.org/
+.. |DOI| image:: https://zenodo.org/badge/644451432.svg
+    :alt: DOI
+    :target: https://zenodo.org/doi/10.5281/zenodo.10155117
 .. |Made_with_Bash| image:: https://img.shields.io/badge/Made%20with-Bash-1f425f.svg
     :alt: Made with Bash
     :target: https://www.gnu.org/software/bash/
