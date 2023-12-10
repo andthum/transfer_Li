@@ -88,7 +88,7 @@ Scripts to run:
     slurm/submit/submit_mdt_analyses.sh \
         -s <system> \
         -e pr_nvt423_vr \
-        -f "--begin 0 --restart 1000 --time 0-02:00:00 --partition express,himsshort,q0heuer,hims,normal"
+        -f "--begin 0 --restart 1000 --time 1-00:00:00 --partition q0heuer,hims,normal"
     bash/cleanup_mdt_analyses.sh -s <system> -e pr_nvt423_vr
 
 
