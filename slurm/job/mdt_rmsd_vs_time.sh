@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --time=0-06:00:00
-#SBATCH --partition=himsshsort,q0heuer,hims,normal
+#SBATCH --partition=himsshort,q0heuer,hims,normal
 #SBATCH --job-name="rmsd_vs_time"
 #SBATCH --output="rmsd_vs_time_slurm-%j.out"
 #SBATCH --mail-type=FAIL
