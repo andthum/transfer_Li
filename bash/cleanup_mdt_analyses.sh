@@ -61,6 +61,29 @@ while getopts s:he:p: option; do
 done
 
 ########################################################################
+# Function Definitions                                                 #
+########################################################################
+
+gather() {
+    # Gather output of similar analysis scripts.
+    local root="${1}"
+    if [[ -d ${root} ]]; then
+        echo "WARNING: Directory already exists: '${root}'"
+        return 0
+    fi
+    if [[ -n $(find . -maxdepth 1 -type d -name "${root}*_slurm-[0-9]*" -print -quit) ]]; then
+        mkdir "${root}/" || exit
+        mv "${root}"*_slurm-[0-9]*/ "${root}/" || exit
+        cd "${root}/" || exit
+        mv "${root}"*_slurm-[0-9]*/* ./ || exit
+        rm -r "${root:?}"*_slurm-[0-9]*/ || exit
+        cd ../ || exit
+    else
+        echo "WARNING: No directory matching pattern '${root}*_slurm-[0-9]*'"
+    fi
+}
+
+########################################################################
 # Main Part                                                            #
 ########################################################################
 
@@ -101,6 +124,7 @@ for dir in Li[0-9]*_transferred; do
     cd "${ana_dir}" || exit
 
     bash "${path_to_hpcss}/${cleanup_script}" || exit
+    gather "rmsd_vs_time" || exit
 
     cd ../../../../ || exit
 done
