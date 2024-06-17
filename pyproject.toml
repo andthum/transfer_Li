@@ -60,7 +60,7 @@ requires-python = ">=3.7, <3.10"
 dependencies = [
     "mdtools @ git+https://github.com/andthum/mdtools@main",
     "MDAnalysis >=2.0, <2.1",
-    "numpy >=1.15, <2.0",
+    "numpy >=1.15, <3.0",
 ]
 
 [project.urls]
