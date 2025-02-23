@@ -40,6 +40,7 @@ jobs:
     strategy:
       matrix:
         # Tests must be run on all target platforms and Python versions
+        # Python <3.8 is not supported in the MacOS 14 runner.
         os:
           - "ubuntu-latest"
           - "macos-13"
@@ -48,6 +49,13 @@ jobs:
           - "3.7"
           - "3.8"
           - "3.9"
+        # Python 3.7 is not supported in the Ubuntu 24.04 runner
+        exclude:
+          - os: "ubuntu-latest"
+            python-version: "3.7"
+        include:
+          - os: "ubuntu-22.04"
+            python-version: "3.7"
       # Do not cancel in-progress jobs if any matrix job fails
       fail-fast: false
     runs-on: "${{ matrix.os }}"
