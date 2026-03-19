@@ -28,7 +28,6 @@ jobs:
         # Tests must be run on all target platforms and Python versions
         os:
           - "ubuntu-latest"
-          - "macos-14"
           - "windows-latest"
         python-version:
           - "3.7"
@@ -37,11 +36,6 @@ jobs:
         exclude:
           # Python 3.7 is not supported in the Ubuntu 24.04 runner
           - os: "ubuntu-latest"
-            python-version: "3.7"
-          # Python 3.7 is not supported on MacOS 14 runners and
-          # MacOS 13 is not supported anymore
-          # https://github.com/actions/runner-images/issues/13046
-          - os: "macos-14"
             python-version: "3.7"
         include:
           - os: "ubuntu-22.04"
@@ -59,8 +53,6 @@ jobs:
       - name: "Add directories where pip installs scripts to PATH"
         run: |
           echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-          # Installation path on MacOS for Python >=3.11.
-          echo "/Users/runner/Library/Python/${{ matrix.python-version }}/bin" >> ${GITHUB_PATH}
       - name: "Get pip cache dir"
         # pip's cache path depends on the operating system.  See
         # https://github.com/actions/cache/blob/main/examples.md#python---pip
@@ -92,7 +84,7 @@ jobs:
           python -m pip install --user --upgrade setuptools wheel
           python -m pip install --user --upgrade python-dev-tools
           python -m pip install --user "Cython <3.0"
-          python -m pip install --user "numpy >=1.19.2"
+          python -m pip install --user "numpy >=1.19.2,<2.0"
       - name: "Test installation of this project"
         run: |
           python -m pip install --user .
