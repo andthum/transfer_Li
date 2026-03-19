@@ -26,18 +26,22 @@ jobs:
     strategy:
       matrix:
         # Tests must be run on all target platforms and Python versions
-        # Python <3.8 is not supported in the MacOS 14 runner.
         os:
           - "ubuntu-latest"
-          - "macos-13"
+          - "macos-14"
           - "windows-latest"
         python-version:
           - "3.7"
           - "3.8"
           - "3.9"
-        # Python 3.7 is not supported in the Ubuntu 24.04 runner
         exclude:
+          # Python 3.7 is not supported in the Ubuntu 24.04 runner
           - os: "ubuntu-latest"
+            python-version: "3.7"
+          # Python 3.7 is not supported on MacOS 14 runners and
+          # MacOS 13 is not supported anymore
+          # https://github.com/actions/runner-images/issues/13046
+          - os: "macos-14"
             python-version: "3.7"
         include:
           - os: "ubuntu-22.04"
